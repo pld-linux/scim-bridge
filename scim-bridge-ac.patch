@@ -1,0 +1,78 @@
+--- scim-bridge-0.4.16/configure.ac.orig	2009-04-18 15:50:18.000000000 +0200
++++ scim-bridge-0.4.16/configure.ac	2011-07-24 22:57:13.848200038 +0200
+@@ -61,6 +61,7 @@
+ 			[SCIM_BRIDGE_HAS_GTK2=no])
+ 
+ SCIM_BRIDGE_HAS_GTK2_2=no
++if test "$enable_gtk2_immodule" != "no"; then
+ if test "$SCIM_BRIDGE_HAS_GTK2" = "yes"; then
+   if $PKG_CONFIG --exists "gtk+-2.0 >= 2.2" ; then
+     SCIM_BRIDGE_HAS_GTK2_2=yes
+@@ -82,12 +83,14 @@
+   AC_SUBST(GTK_BINARY_VERSION)
+   enable_gtk2_immodule="yes";
+ fi
++fi
+ 
+ # Check if we should build scim-bridge-qt-immodule
+ PKG_CHECK_MODULES(QT3, [qt-mt >= 3.3],
+ 			[SCIM_BRIDGE_HAS_QT3=yes],
+ 			[SCIM_BRIDGE_HAS_QT3=no])
+ 
++if test "$enable_qt3_immodule" != "no"; then
+ if test "$SCIM_BRIDGE_HAS_QT3" = "yes"; then
+   if test -z "$QT3_PREFIX"; then
+     QT3_PREFIX=`$PKG_CONFIG --variable=prefix qt-mt`
+@@ -95,11 +98,13 @@
+   AC_SUBST(QT3_PREFIX)
+   enable_qt3_immodule="yes";
+ fi
++fi
+ 
+ PKG_CHECK_MODULES(QT4, [QtGui >= 4.0, QtCore >= 4.0],
+ 			[SCIM_BRIDGE_HAS_QT4=yes],
+ 			[SCIM_BRIDGE_HAS_QT4=no])
+ 
++if test "$enable_qt4_immodule" != "no"; then
+ if test "$SCIM_BRIDGE_HAS_QT4" = "yes"; then
+   if test -z "$QT4_PREFIX"; then
+     QT4_PREFIX=`$PKG_CONFIG --variable=prefix QtCore`
+@@ -107,6 +112,7 @@
+   AC_SUBST(QT4_PREFIX)
+   enable_qt4_immodule="yes";
+ fi
++fi
+ 
+ ###########################################################
+ ##             Definiation of compile args.              ##
+@@ -128,13 +128,16 @@
+        	      enable_agent=yes)
+ 
+ AC_ARG_ENABLE(gtk2-immodule,
+-	      [AS_HELP_STRING([--enable-gtk2-immodule], [build GTK2 IM module])], , )
++	      [AS_HELP_STRING([--enable-gtk2-immodule], [build GTK2 IM module])],
++	      enable_gtk2_immodule="$enableval", )
+ 
+ AC_ARG_ENABLE(qt3-immodule,
+-	      [AS_HELP_STRING([--enable-qt3-immodule], [build Qt3 IM module])], , )
++	      [AS_HELP_STRING([--enable-qt3-immodule], [build Qt3 IM module])],
++	      enable_qt3_immodule="$enableval", )
+ 
+ AC_ARG_ENABLE(qt4-immodule,
+-	      [AS_HELP_STRING([--enable-qt4-immodule], [build Qt4 IM module])], , )
++	      [AS_HELP_STRING([--enable-qt4-immodule], [build Qt4 IM module])],
++	      enable_qt4_immodule="$enableval", )
+ 
+ if test "$enable_debug" = "yes"; then
+   AC_DEFINE(ENABLE_DEBUG,1,[Define this to enable the debug facility in libscim])
+--- scim-bridge-0.4.16/client-gtk/Makefile.am~	2009-01-17 17:46:31.000000000 +0100
++++ scim-bridge-0.4.16/client-gtk/Makefile.am	2011-07-24 23:09:58.900272006 +0200
+@@ -24,7 +24,7 @@
+ 
+ noinst_HEADERS = scim-bridge-client-gtk.h scim-bridge-client-imcontext-gtk.h  scim-bridge-client-key-event-utility-gtk.h
+ 
+-moduledir = @GTK_LIBDIR@/gtk-2.0/immodules
++moduledir = @GTK_LIBDIR@/gtk-2.0/@GTK_BINARY_VERSION@/immodules
+ 
+ module_LTLIBRARIES = im-scim-bridge.la
+ 
