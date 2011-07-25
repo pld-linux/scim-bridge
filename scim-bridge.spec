@@ -6,7 +6,7 @@
 Summary:	SCIM Bridge Gtk IM module
 Name:		scim-bridge
 Version:	0.4.16
-Release:	0.1
+Release:	1
 License:	GPLv2+ or LGPLv2+
 Group:		Libraries
 URL:		http://www.scim-im.org/projects/scim_bridge
