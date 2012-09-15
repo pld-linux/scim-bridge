@@ -1,0 +1,22 @@
+--- scim-bridge-0.4.16/client-qt/qt3/Makefile.am.orig	2009-01-17 17:57:16.000000000 +0100
++++ scim-bridge-0.4.16/client-qt/qt3/Makefile.am	2012-09-15 20:28:29.754579771 +0200
+@@ -24,8 +24,8 @@
+ 
+ noinst_HEADERS = ../scim-bridge-client-qt.h ../scim-bridge-client-imcontext-qt.h  ../scim-bridge-client-key-event-utility-qt.h ../scim-bridge-client-common-qt.h
+ 
+-moduledir = @QT3_PREFIX@/plugins/inputmethods
+-module_LTLIBRARIES = im-scim-bridge.la
++qt3moduledir = @QT3_PREFIX@/plugins/inputmethods
++qt3module_LTLIBRARIES = im-scim-bridge.la
+ 
+ im_scim_bridge_la_SOURCES = ../im-scim-bridge-qt.cpp \
+ 							../scim-bridge-client-qt.cpp \
+@@ -36,7 +36,7 @@
+ im_scim_bridge_la_CXXFLAGS=@QT3_CFLAGS@ -DQT_IMMODULE
+ im_scim_bridge_la_CFLAGS  =@QT3_CFLAGS@ -DQT_IMMODULE
+ 
+-im_scim_bridge_la_LDFLAGS = -rpath $(moduledir) \
++im_scim_bridge_la_LDFLAGS = -rpath $(qt3moduledir) \
+ 							-avoid-version -no-undefined \
+ 							-module \
+ 							@QT3_LIBS@
