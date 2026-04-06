@@ -7,7 +7,7 @@ Summary:	SCIM Bridge GTK+ IM module
 Summary(pl.UTF-8):	Moduł IM GTK+ SCIM Bridge
 Name:		scim-bridge
 Version:	0.4.16
-Release:	1
+Release:	2
 License:	GPL v2+ or LGPL v2+
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/scim/%{name}-%{version}.tar.gz
@@ -20,6 +20,7 @@ Patch4:		%{name}-fix-gtk-key-snooper.patch
 Patch5:		%{name}-fixes-null-imengine.patch
 Patch6:		%{name}-ac.patch
 Patch7:		%{name}-qt3.patch
+Patch8:		%{name}-alloca.patch
 URL:		http://www.scim-im.org/projects/scim_bridge
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -98,6 +99,7 @@ Bridge.
 %patch -P5 -p1
 %patch -P6 -p1
 %patch -P7 -p1
+%patch -P8 -p1
 
 %build
 %{__libtoolize}
